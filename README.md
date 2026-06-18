@@ -25,7 +25,10 @@ OCR systems typically:
 ```text
 Input image -> Preprocessing -> Text detection -> Character recognition -> Post-processing -> Extracted text
 ```
+##
 
+
+##
 ## Project Goals
 
 - Provide a clean foundation for OCR experimentation.
