@@ -1,0 +1,4 @@
+{
+  "name": "OCR Project (Python 3.10)",
+  "image": "mcr.microsoft.com/devcontainers/python:3.10"
+}

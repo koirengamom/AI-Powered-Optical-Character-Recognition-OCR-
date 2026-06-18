@@ -1,51 +1,42 @@
 # AI-Powered Optical Character Recognition (OCR)
 
-This project is a starting point for building an AI-powered Optical Character Recognition (OCR) workflow. OCR converts text that appears in images, scans, screenshots, or document photos into machine-readable text.
+This project uses PaddleOCR to extract text from image files and scanned PDFs. It writes the result to TXT by default and can also export DOCX and JSON.
 
-## What OCR Does
+## Supported Inputs
 
-OCR systems typically:
+- Image files: `.jpg`, `.jpeg`, `.png`, `.bmp`, `.tif`, `.tiff`, `.webp`
+- Scanned PDF documents
 
-1. Take an input image or scanned document.
-2. Improve the image with preprocessing such as resizing, thresholding, or denoising.
-3. Detect where text appears.
-4. Recognize the characters and words.
-5. Return the extracted text in a usable format.
+## Outputs
 
-## Common Use Cases
+- TXT: always generated
+- DOCX: optional with `--docx`
+- JSON: optional with `--json`
 
-- Digitizing paper documents
-- Extracting text from invoices, receipts, and forms
-- Searching text inside scanned archives
-- Reading text from screenshots and photos
-- Automating data entry workflows
+## Installation
 
-## Typical OCR Pipeline
+Install the dependencies listed in [requirement.txt](requirement.txt). This project uses the headless OpenCV build to avoid `libGL.so.1` import issues. For PDF support, `pdf2image` also needs Poppler installed on your system.
 
-```text
-Input image -> Preprocessing -> Text detection -> Character recognition -> Post-processing -> Extracted text
+## Usage
+
+Run the CLI with either `main.py` or `ocr.py`:
+
+```bash
+python main.py path/to/file.pdf
+python ocr.py path/to/image.jpg --docx --json
 ```
 
-## Project Goals
-
-- Provide a clean foundation for OCR experimentation.
-- Support document text extraction with minimal setup.
-- Make it easy to extend with better models or preprocessing steps.
-
-## Suggested Next Steps
-
-- Add image preprocessing utilities.
-- Integrate an OCR engine such as Tesseract or a deep learning-based recognizer.
-- Build a simple interface for uploading images and viewing extracted text.
-- Add evaluation on sample images to measure accuracy.
+By default, output files are written to the `output/` directory using the input filename as the base name.
 
 ## Example Output
 
-```text
-Input: invoice.jpg
-Output: "Invoice No. 1042 - Total Amount: $89.50"
-```
+For `invoice.jpg`, the tool writes:
 
-## License
+- `output/invoice.txt`
+- `output/invoice.docx` when `--docx` is used
+- `output/invoice.json` when `--json` is used
 
-Add a license here if you want to publish or share the project.
+## Notes
+
+- The OCR engine is loaded lazily, so importing the module does not immediately download or initialize the model.
+- DOCX export is optional and requires `python-docx`.
